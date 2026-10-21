@@ -50,9 +50,16 @@ export default async function ReportsPage({
         title="Reports"
         description={`${formatDate(sales.range.from)} → ${formatDate(sales.range.to)}`}
         actions={
-          <Button asChild variant="outline">
-            <a href={`/api/export?type=sales&${exportQs.toString()}`}>Export sales CSV</a>
-          </Button>
+          <>
+            {user.permissions.includes("reports.export") ? (
+              <Button asChild variant="outline">
+                <Link href="/reports/send-to-ca">Send to CA</Link>
+              </Button>
+            ) : null}
+            <Button asChild variant="outline">
+              <a href={`/api/export?type=sales&${exportQs.toString()}`}>Export sales CSV</a>
+            </Button>
+          </>
         }
       />
 

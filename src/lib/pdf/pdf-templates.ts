@@ -198,8 +198,9 @@ function salesDocLines(lines: SalesLineSource[], isGst: boolean, asSaved = false
         taxable,
         tax: Math.round((net - taxable + Number.EPSILON) * 100) / 100,
         gstRate: gst,
-        // The amount the form showed for the line: after discount, incl. GST.
-        amount: net,
+        // qty x rate as saved (the form's "gross" for the line). The discount is shown
+        // once, in the summary, so the item amounts add up to the Gross Amount.
+        amount: Math.round((unit * line.quantity + Number.EPSILON) * 100) / 100,
       };
     }
     const gst = isGst ? num(line.gstRate as number) : 0;
@@ -366,7 +367,6 @@ export async function generateQuotationPDF(quotationId: string): Promise<{ buffe
       terms: quotation.terms || company.termsConditions,
       notes: quotation.notes,
       discountRemarks: quotation.discountRemarks,
-      showDiscountColumn: num(quotation.discountAmount) > 0 || lines.some((l) => l.discountPercent > 0),
       signatoryFor: company.name,
     },
     `Quotation ${quotation.quotationNumber}`,

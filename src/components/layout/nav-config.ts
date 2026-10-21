@@ -12,6 +12,7 @@ import {
   MonitorSmartphone,
   Package,
   Receipt,
+  Send,
   Settings,
   ShieldCheck,
   ShoppingCart,
@@ -203,6 +204,12 @@ export const NAV_SECTIONS: NavSection[] = [
         href: "/ledgers",
         icon: BookOpen,
         permissions: [PERMISSIONS.REPORTS_VIEW, PERMISSIONS.PAYMENTS_VIEW],
+      },
+      {
+        label: "Send to CA",
+        href: "/reports/send-to-ca",
+        icon: Send,
+        permissions: [PERMISSIONS.REPORTS_EXPORT],
       },
       {
         label: "Reports",
