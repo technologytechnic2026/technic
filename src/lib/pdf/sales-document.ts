@@ -259,7 +259,7 @@ function footerLines(d: SalesDocData): Ln[] {
     if (t.sgst > 0) row("Add SGST", padL(money(t.sgst), 14));
     if (t.igst > 0) row("Add IGST", padL(money(t.igst), 14));
   } else {
-    row("Net of Discount", padL(money(t.taxable), 14));
+    row("Taxable Value", padL(money(t.taxable), 14));
   }
   if (t.roundOff !== 0) row("Round Off", padL(`${t.roundOff < 0 ? "-" : "+"}${money(Math.abs(t.roundOff))}`, 14));
   right.push(L("=".repeat(RIGHT)));

@@ -12,6 +12,7 @@ import {
   type SummaryLine,
 } from "./pdf-builder";
 import { renderSalesDocument } from "./sales-document";
+import { renderQuotationDocument } from "./quotation-document";
 
 /**
  * Technic Technologies document templates. One generator per business
@@ -198,9 +199,8 @@ function salesDocLines(lines: SalesLineSource[], isGst: boolean, asSaved = false
         taxable,
         tax: Math.round((net - taxable + Number.EPSILON) * 100) / 100,
         gstRate: gst,
-        // qty x rate as saved (the form's "gross" for the line). The discount is shown
-        // once, in the summary, so the item amounts add up to the Gross Amount.
-        amount: Math.round((unit * line.quantity + Number.EPSILON) * 100) / 100,
+        // The amount the ERP form shows for the line: after discount, incl. GST.
+        amount: net,
       };
     }
     const gst = isGst ? num(line.gstRate as number) : 0;
@@ -340,7 +340,7 @@ export async function generateQuotationPDF(quotationId: string): Promise<{ buffe
   };
 
   const customer = quotation.customer;
-  const buffer = await renderSalesDocument(
+  const buffer = await renderQuotationDocument(
     {
       title: "QUOTATION",
       isGst,
