@@ -86,7 +86,11 @@ export async function getCompanyProfile(firmId: string): Promise<CompanyProfile>
     phone: pick("company_phone", firm?.phone),
     email: pick("company_email", firm?.email),
     website: pick("company_website", firm?.website),
-    gstin: map.get("company_gstin") || firm?.gstin || "",
+    // The firm record is the single source of truth for the company GSTIN — the same
+    // value the ERP shows (Firms page, Settings). A "company_gstin" settings row is
+    // not editable anywhere in the app (the seed once wrote a placeholder), so it must
+    // never override the firm's real GSTIN on a printed document.
+    gstin: firm?.gstin || "",
     pan: firm?.pan || "",
     state: firm?.state || "",
     logoUrl: map.get("company_logo") || "/logo.png",

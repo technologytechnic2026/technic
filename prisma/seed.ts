@@ -692,7 +692,6 @@ async function seedStockAndSales(
 async function seedSettings() {
   const settings = [
     { key: "app_name", value: "Technic Technologies ERP", category: "general" },
-    { key: "company_gstin", value: "29AAKCT1234F1ZP", category: "company" },
     { key: "company_bank_details", value: "Technic Technologies Pvt Ltd\nA/C 50200012345678, HDFC Bank, Electronics City Branch\nIFSC HDFC0001234", category: "company" },
     { key: "sequence_invoice_gst", value: "TT/GST/{FY}/", category: "documents" },
     { key: "sequence_invoice_non_gst", value: "TT/NG/{FY}/", category: "documents" },
